@@ -143,37 +143,7 @@ export default function HomeScreen() {
           <Text style={styles.buttonText}>Request Ride & Set Your Price</Text>
         </TouchableOpacity>
       </View>
-      
-      <View style={styles.recentContainer}>
-        <Text style={styles.recentTitle}>Suggested Locations</Text>
-        <ScrollView style={styles.recentList}>
-          {SUGGESTED_LOCATIONS.map((item) => (
-            <View key={item.id} style={styles.locationItemContainer}>
-              <TouchableOpacity 
-                style={styles.recentItem} 
-                onPress={() => handleLocationSelect(item, false)}
-              >
-                <MapPin size={16} color="#666" />
-                <Text style={styles.recentText}>{item.name}</Text>
-              </TouchableOpacity>
-              <View style={styles.locationButtons}>
-                <TouchableOpacity 
-                  style={[styles.locationButton, styles.pickupButton]}
-                  onPress={() => handleLocationSelect(item, true)}
-                >
-                  <Text style={styles.locationButtonText}>Pickup</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                  style={[styles.locationButton, styles.destinationButton]}
-                  onPress={() => handleLocationSelect(item, false)}
-                >
-                  <Text style={styles.locationButtonText}>Destination</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+
     </View>
   );
 }

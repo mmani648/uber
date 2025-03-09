@@ -1,8 +1,11 @@
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
-import { Chrome as Home, Clock, User, Car } from 'lucide-react-native';
+import { Chrome as Home, Clock, User, Car, Printer as Steering, DollarSign } from 'lucide-react-native';
+import { useUser } from '../../context/UserContext';
 
 export default function TabLayout() {
+  const { userType } = useUser();
+
   return (
     <Tabs
       screenOptions={{
@@ -13,34 +16,78 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="bids"
-        options={{
-          title: 'My Bids',
-          tabBarIcon: ({ color, size }) => <Car size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="history"
-        options={{
-          title: 'History',
-          tabBarIcon: ({ color, size }) => <Clock size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => <User size={size} color={color} />,
-        }}
-      />
+      {userType === 'driver' ? (
+        // Driver Tabs
+        <>
+          <Tabs.Screen
+            name="driver-home"
+            options={{
+              title: 'Available Rides',
+              tabBarIcon: ({ size, color }) => <Car size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="driver-earnings"
+            options={{
+              title: 'Earnings',
+              tabBarIcon: ({ size, color }) => <DollarSign size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="driver-history"
+            options={{
+              title: 'History',
+              tabBarIcon: ({ size, color }) => <Clock size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="driver-shift"
+            options={{
+              title: 'Shift',
+              tabBarIcon: ({ size, color }) => <Steering size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Profile',
+              tabBarIcon: ({ size, color }) => <User size={size} color={color} />,
+            }}
+          />
+        </>
+      ) : (
+        // Rider Tabs
+        <>
+          <Tabs.Screen
+            name="index"
+            options={{
+              title: 'Home',
+              tabBarIcon: ({ size, color }) => <Home size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="bids"
+            options={{
+              title: 'My Bids',
+              tabBarIcon: ({ size, color }) => <Car size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="history"
+            options={{
+              title: 'History',
+              tabBarIcon: ({ size, color }) => <Clock size={size} color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Profile',
+              tabBarIcon: ({ size, color }) => <User size={size} color={color} />,
+            }}
+          />
+        </>
+      )}
     </Tabs>
   );
 }
